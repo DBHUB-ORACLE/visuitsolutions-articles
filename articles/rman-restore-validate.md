@@ -20,7 +20,7 @@ If a backup piece is missing or damaged, RMAN reports it and, where possible, fa
 `VALIDATE DATABASE` (or `BACKUP VALIDATE DATABASE`) reads the **live datafiles** and checks them for corruption. It says nothing about whether your backups are usable. Run both: one protects you from damaged data, the other from damaged backups.
 
 ```sql
-RMAN> VALIDATE DATABASE;
+RMAN> VALIDATE DATABASE PLUGGABLE;
 ```
 
 ## What to check in the output
