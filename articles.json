@@ -6,5 +6,13 @@
     "summary": "RESTORE VALIDATE reads your backups end to end without writing a datafile. How to run it, and how it differs from VALIDATE.",
     "author": "",
     "published": true
+  },
+  {
+    "slug": "adg-setup",
+    "title": "Proving an RMAN backup can be restored, without restoring it",
+    "date": "2026-10-30",
+    "summary": "RESTORE VALIDATE reads your backups end to end without writing a datafile. How to run it, and how it differs from VALIDATE.",
+    "author": "",
+    "published": true
   }
 ]
