@@ -9,9 +9,9 @@
   },
   {
     "slug": "adg-setup",
-    "title": "Proving an RMAN backup can be restored, without restoring it",
+    "title": "Physical standby setup: build it right, and know when you need Active Data Guard",
     "date": "2026-10-30",
-    "summary": "RESTORE VALIDATE reads your backups end to end without writing a datafile. How to run it, and how it differs from VALIDATE.",
+    "summary": "Standby redo logs, FORCE LOGGING, redo transport, and the one step that needs an Active Data Guard licence. A checklist with the queries to verify each part.",
     "author": "",
     "published": true
   }
