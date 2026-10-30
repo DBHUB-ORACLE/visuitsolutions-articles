@@ -1,55 +1,64 @@
 # visuitsolutions-articles
 
 Articles for the Resources section of https://visuitsolutions.com.
-The website reads this repository directly, so a push here publishes the article. No website upload is needed.
+The website reads this repository directly. Add a Markdown file and push: the article list updates itself.
 
 The repository must be **public**.
 
 ## Structure
 
 ```
-articles.json            list of articles shown on the website
 articles/
   <slug>.md              one Markdown file per article
   images/                optional pictures used in articles
+articles.json            generated automatically - do not edit by hand
+scripts/build_index.py   builds articles.json from the Markdown files
+.github/workflows/build-index.yml   runs the script on every push
 ```
 
 ## Publish a new article
 
-1. Choose a slug: lowercase letters, digits, and hyphens only, for example `ora-00600-at-startup`.
-2. Create `articles/<slug>.md`. Start with a `# Title` line; the website takes the title from `articles.json` and hides this line.
-3. Add an entry at the top of `articles.json`:
+1. Create `articles/<slug>.md` (GitHub: Add file > Create new file).
+   The slug is the file name: lowercase letters, digits, and hyphens only, for example `ora-00600-at-startup.md`.
+2. Write the article (see the template below) and commit to `main`.
+3. Wait about one minute. A GitHub Action rebuilds `articles.json` and commits it as "Update articles.json".
+4. The article appears on https://visuitsolutions.com/resources/ about five minutes later (GitHub caches raw files briefly).
 
-```json
-{
-  "slug": "ora-00600-at-startup",
-  "title": "ORA-00600 at startup: first steps",
-  "date": "2026-11-15",
-  "summary": "One or two sentences shown in the article list and in search results.",
-  "author": "",
-  "published": true
-}
+You never edit `articles.json`.
+
+## Article template
+
+```markdown
+---
+title: ORA-00600 at startup: first steps
+date: 2026-11-15
+summary: One or two sentences shown in the article list and in search results.
+author: Your Name
+---
+
+Opening paragraph that explains the problem.
+
+## First check
+
+Steps, commands, and what the output means.
 ```
 
-4. Commit and push. The article appears at `https://visuitsolutions.com/resources/read/?a=<slug>` within about five minutes (GitHub caches raw files briefly).
+Everything in the block between the `---` lines is optional. If you leave something out:
 
-## Fields in articles.json
-
-| Field | Required | Notes |
-|---|---|---|
-| slug | yes | Must match the file name without `.md` |
-| title | yes | Shown as the page title |
-| date | yes | `YYYY-MM-DD`; the list is sorted newest first |
-| summary | yes | 1 to 2 sentences, under 160 characters |
-| author | no | Your name; empty shows "Visu IT Solutions Oracle team" |
-| published | no | Set to `false` to hide an article without deleting it |
+| Field | If missing |
+|---|---|
+| title | the first `# Heading` in the file, otherwise the file name |
+| date | the day you first pushed the file |
+| summary | the first paragraph, shortened to 160 characters |
+| author | the website shows "Visu IT Solutions Oracle team" |
+| published | the article is published; write `published: false` to hide a draft |
 
 ## Writing rules
 
 - One error code or one real situation per article.
 - Write from real experience; include the commands you actually ran.
 - English only.
-- Use headings (`##`), short paragraphs, code blocks for SQL and RMAN.
+- Use headings (`##`), short paragraphs, and code blocks for SQL and RMAN.
 - Never include customer names, hostnames, IP addresses, or real data.
 - End with what the reader should do next.
 
@@ -57,7 +66,15 @@ articles/
 
 Put images in `articles/images/` and link them relatively: `![ASM disk list](images/asm-disks.png)`.
 
-## Check before pushing
+## If an article does not appear
 
-- `articles.json` is valid JSON (a missing comma hides every article). Paste it into any JSON validator if unsure.
-- The slug in `articles.json` and the file name match exactly.
+1. Open the **Actions** tab of this repository. The latest "Build articles.json" run must be green. A red run shows the reason.
+2. Check the file name: lowercase, hyphens, ends with `.md`. The Action log lists any skipped file.
+3. Open `articles.json` in the repository and check your article is listed.
+4. Open https://raw.githubusercontent.com/DBHUB-ORACLE/visuitsolutions-articles/main/articles.json . If it is old, wait a few minutes.
+5. Hard refresh the website page (Ctrl+F5).
+
+## One-time setup
+
+- Settings > Actions > General > Workflow permissions: choose **Read and write permissions** if the Action cannot push (only needed on some accounts).
+- If the repository's default branch is not `main`, rename it to `main`.

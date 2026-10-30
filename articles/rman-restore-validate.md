@@ -1,3 +1,9 @@
+---
+title: Proving an RMAN backup can be restored, without restoring it
+date: 2026-10-30
+summary: RESTORE VALIDATE reads your backups end to end without writing a datafile. How to run it, and how it differs from VALIDATE.
+---
+
 # Proving an RMAN backup can be restored, without restoring it
 
 A backup job that ends with "completed" proves only that RMAN wrote files. It does not prove those files can be read back. RMAN can check that without writing a single datafile.
@@ -20,7 +26,7 @@ If a backup piece is missing or damaged, RMAN reports it and, where possible, fa
 `VALIDATE DATABASE` (or `BACKUP VALIDATE DATABASE`) reads the **live datafiles** and checks them for corruption. It says nothing about whether your backups are usable. Run both: one protects you from damaged data, the other from damaged backups.
 
 ```sql
-RMAN> VALIDATE DATABASE PLUGGABLE;
+RMAN> VALIDATE DATABASE;
 ```
 
 ## What to check in the output
